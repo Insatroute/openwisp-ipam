@@ -1,5 +1,5 @@
 django-reversion~=5.1.0
 openpyxl~=3.1.5
 
-git+https://github.com/Insatroute/openwisp-users.git@main#egg=openwisp_users
-git+https://github.com/Insatroute/openwisp-utils.git@main#egg=openwisp_utils[rest]
+openwisp-users @ https://github.com/Insatroute/openwisp-users/tarball/main
+openwisp-utils[rest] @ https://github.com/Insatroute/openwisp-utils/tarball/main
