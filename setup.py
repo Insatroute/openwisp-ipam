@@ -14,7 +14,7 @@ def get_install_requires():
     """
     requirements = []
     for line in open("requirements.txt").readlines():
-        if line.startswith("#") or line == "" or line.startswith("git"):
+        if line.startswith("#") or line == "":
             continue
         requirements.append(line)
     return requirements
@@ -28,8 +28,8 @@ setup(
     author_email="support@openwisp.io",
     description="IP address space administration module of OpenWISP.",
     long_description=README,
-    url="https://github.com/openwisp/openwisp-ipam",
-    download_url="https://github.com/openwisp/openwisp-ipam/releases",
+    url="https://github.com/Insatroute/openwisp-ipam",
+    #download_url="https://github.com/openwisp/openwisp-ipam/releases",
     platforms=["Platform Independent"],
     keywords=["django", "freeradius", "networking", "openwisp"],
     packages=find_packages(exclude=["tests*", "docs*"]),
