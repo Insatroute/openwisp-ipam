@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from openwisp_users.multitenancy import MultitenantRelatedOrgFilter
 from swapper import load_model
 
-Subnet = load_model("openwisp_ipam", "Subnet")
+Subnet = load_model("nexapp_ipam", "Subnet")
 
 
 class SubnetFilter(MultitenantRelatedOrgFilter):

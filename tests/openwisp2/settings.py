@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     # openwisp2 modules
     "openwisp_users",
     "openwisp_ipam",
+    "openwisp_ipam.apps.OpenWispIpamConfig",
     # admin
     "openwisp_utils.admin_theme",
     "django.contrib.admin",

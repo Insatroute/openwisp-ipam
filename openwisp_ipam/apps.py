@@ -7,6 +7,7 @@ from swapper import get_model_name
 
 class OpenWispIpamConfig(ApiAppConfig):
     name = "openwisp_ipam"
+    label = "nexapp_ipam"
     verbose_name = "IPAM"
 
     API_ENABLED = True
@@ -26,13 +27,13 @@ class OpenWispIpamConfig(ApiAppConfig):
                 "items": {
                     1: {
                         "label": _("IP Addresses"),
-                        "model": get_model_name("openwisp_ipam", "IpAddress"),
+                        "model": get_model_name("nexapp_ipam", "IpAddress"),
                         "name": "changelist",
                         "icon": "ow-ip-address",
                     },
                     2: {
                         "label": _("Subnets"),
-                        "model": get_model_name("openwisp_ipam", "Subnet"),
+                        "model": get_model_name("nexapp_ipam", "Subnet"),
                         "name": "changelist",
                         "icon": "ow-subnet",
                     },

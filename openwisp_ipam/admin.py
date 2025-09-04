@@ -24,8 +24,8 @@ from .base.forms import IpAddressImportForm
 from .base.models import CsvImportException
 from .filters import SubnetFilter, SubnetOrganizationFilter
 
-Subnet = swapper.load_model("openwisp_ipam", "Subnet")
-IpAddress = swapper.load_model("openwisp_ipam", "IpAddress")
+Subnet = swapper.load_model("nexapp_ipam", "Subnet")
+IpAddress = swapper.load_model("nexapp_ipam", "IpAddress")
 
 
 @admin.register(Subnet)

@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("openwisp_ipam", "0001_initial"),
+        ("nexapp_ipam", "0001_initial"),
     ]
 
     operations = [

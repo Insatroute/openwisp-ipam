@@ -165,7 +165,7 @@ class AbstractSubnet(ShareableOrgMixin, TimeStampedEditableModel):
         ip = self.get_next_available_ip()
         if not ip:
             return None
-        ip_address = load_model("openwisp_ipam", "IpAddress")(
+        ip_address = load_model("nexapp_ipam", "IpAddress")(
             ip_address=ip, subnet=self, **options
         )
         ip_address.full_clean()
@@ -179,7 +179,7 @@ class AbstractSubnet(ShareableOrgMixin, TimeStampedEditableModel):
         return None
 
     def _read_subnet_data(self, reader):
-        subnet_model = load_model("openwisp_ipam", "Subnet")
+        subnet_model = load_model("nexapp_ipam", "Subnet")
         subnet_name = self._read_row(reader)
         subnet_value = self._read_row(reader)
         org_slug = self._read_row(reader)
@@ -202,7 +202,7 @@ class AbstractSubnet(ShareableOrgMixin, TimeStampedEditableModel):
         return subnet
 
     def _read_ipaddress_data(self, reader, subnet):
-        ipaddress_model = load_model("openwisp_ipam", "IpAddress")
+        ipaddress_model = load_model("nexapp_ipam", "IpAddress")
         ipaddress_list = []
         for row in reader:
             description = str(row[1] or "").strip()
@@ -240,8 +240,8 @@ class AbstractSubnet(ShareableOrgMixin, TimeStampedEditableModel):
         self._read_ipaddress_data(reader, subnet)
 
     def export_csv(self, subnet_id, writer):
-        ipaddress_model = load_model("openwisp_ipam", "IpAddress")
-        subnet = load_model("openwisp_ipam", "Subnet").objects.get(pk=subnet_id)
+        ipaddress_model = load_model("nexapp_ipam", "IpAddress")
+        subnet = load_model("nexapp_ipam", "Subnet").objects.get(pk=subnet_id)
         writer.writerow([subnet.name])
         writer.writerow([subnet.subnet])
         writer.writerow([subnet.organization.slug] if subnet.organization else "")
@@ -278,7 +278,7 @@ class AbstractSubnet(ShareableOrgMixin, TimeStampedEditableModel):
 
 class AbstractIpAddress(TimeStampedEditableModel):
     subnet = models.ForeignKey(
-        get_model_name("openwisp_ipam", "Subnet"), on_delete=models.CASCADE
+        get_model_name("nexapp_ipam", "Subnet"), on_delete=models.CASCADE
     )
     ip_address = models.GenericIPAddressField()
     description = models.CharField(max_length=100, blank=True)
@@ -299,7 +299,7 @@ class AbstractIpAddress(TimeStampedEditableModel):
                 {"ip_address": _("IP address does not belong to the subnet")}
             )
         addresses = (
-            load_model("openwisp_ipam", "IpAddress")
+            load_model("nexapp_ipam", "IpAddress")
             .objects.filter(subnet=self.subnet_id)
             .exclude(pk=self.pk)
             .values()

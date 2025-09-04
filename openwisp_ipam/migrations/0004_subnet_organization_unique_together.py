@@ -7,7 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("openwisp_ipam", "0003_shareable_subnets"),
+        ("nexapp_ipam", "0003_shareable_subnets"),
     ]
 
     operations = [

@@ -33,8 +33,8 @@ from .serializers import (
 )
 from .utils import AuthorizeCSVOrgManaged
 
-IpAddress = swapper.load_model("openwisp_ipam", "IpAddress")
-Subnet = swapper.load_model("openwisp_ipam", "Subnet")
+IpAddress = swapper.load_model("nexapp_ipam", "IpAddress")
+Subnet = swapper.load_model("nexapp_ipam", "Subnet")
 Organization = swapper.load_model("openwisp_users", "Organization")
 
 
