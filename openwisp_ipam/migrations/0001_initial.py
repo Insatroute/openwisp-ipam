@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 "abstract": False,
-                "swappable": swapper.swappable_setting("openwisp_ipam", "Ipaddress"),
+                "swappable": swapper.swappable_setting("nexapp_ipam", "Ipaddress"),
                 "verbose_name": "IP address",
                 "verbose_name_plural": "IP addresses",
             },
@@ -116,7 +116,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="child_subnet_set",
-                        to=swapper.get_model_name("openwisp_ipam", "Subnet"),
+                        to=swapper.get_model_name("nexapp_ipam", "Subnet"),
                     ),
                 ),
                 (
@@ -130,7 +130,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 "abstract": False,
-                "swappable": swapper.swappable_setting("openwisp_ipam", "Subnet"),
+                "swappable": swapper.swappable_setting("nexapp_ipam", "Subnet"),
             },
             bases=(openwisp_users.mixins.ValidateOrgMixin, models.Model),
         ),
@@ -139,7 +139,7 @@ class Migration(migrations.Migration):
             name="subnet",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                to=swapper.get_model_name("openwisp_ipam", "Subnet"),
+                to=swapper.get_model_name("nexapp_ipam", "Subnet"),
             ),
         ),
         migrations.AddIndex(
