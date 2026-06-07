@@ -53,6 +53,38 @@ class SubnetAdmin(
     list_select_related = ["organization", "master_subnet"]
     save_on_top = True
 
+    def get_search_results(self, request, queryset, search_term):
+        queryset, may_have_duplicates = super().get_search_results(
+            request, queryset, search_term
+        )
+        # When this autocomplete is a VPN server's "subnet"/"subnet6" picker,
+        # show only control-plane-relevant subnets: hide the SD-WAN fabric overlay
+        # subnets (owned by topologies) and any subnet already consumed by another
+        # VPN, so a VXLAN-over-IPsec (or any) VPN can only pick a free, org-scoped
+        # subnet. Org scoping itself is already applied by MultitenantAdminMixin.
+        if request.GET.get("model_name") == "vpn" and request.GET.get(
+            "field_name"
+        ) in ("subnet", "subnet6"):
+            try:
+                from swapper import load_model
+
+                Vpn = load_model("config", "Vpn")
+                consumed = set(
+                    Vpn.objects.exclude(subnet__isnull=True).values_list(
+                        "subnet_id", flat=True
+                    )
+                ) | set(
+                    Vpn.objects.exclude(subnet6__isnull=True).values_list(
+                        "subnet6_id", flat=True
+                    )
+                )
+                queryset = queryset.exclude(
+                    name__startswith="SD-WAN Overlay:"
+                ).exclude(pk__in=consumed)
+            except Exception:  # never break the autocomplete on a filter error
+                pass
+        return queryset, may_have_duplicates
+
     def change_view(self, request, object_id, form_url="", extra_context=None):
         instance = self.get_object(request, object_id)
         if instance is None:
